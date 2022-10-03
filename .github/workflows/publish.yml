@@ -1,6 +1,10 @@
 name: 'My Workflow'
 
-on: pull_request
+on:
+    push:
+        tags:
+            - '*'
+    workflow_dispatch:
 
 jobs:
   create-release:
