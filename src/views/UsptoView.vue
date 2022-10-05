@@ -3,15 +3,18 @@ import { ref } from 'vue'
 import { useUSPTOStore } from '@/stores/counter'
 import { readxlUS } from '@/ts/readxlsx'
 import { stringToArray } from '@/ts/readString'
+import { getDetails } from '@/ts/getDetails'
 let patstring = ref('')
 let usptoStore = useUSPTOStore()
 let onFileSelected = async (e: any) => {
     const file = e.target.files[0]
     const data = await file.arrayBuffer()
-    readxlUS(data).then(console.log)
+    readxlUS(data).then((r) => {
+        getDetails()
+    })
 }
 let onStringSelected = async () => {
-    stringToArray(patstring.value)
+    stringToArray(patstring.value).then(() => getDetails())
 }
 </script>
 <template>

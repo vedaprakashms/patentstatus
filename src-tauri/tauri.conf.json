@@ -4,7 +4,8 @@
         "beforeBuildCommand": "yarn run build",
         "beforeDevCommand": "yarn run dev",
         "devPath": "http://localhost:9291",
-        "distDir": "../dist"
+        "distDir": "../dist",
+        "withGlobalTauri": true
     },
     "package": {
         "productName": "patentstatus",
@@ -12,7 +13,46 @@
     },
     "tauri": {
         "allowlist": {
-            "all": true
+            "all": true,
+            "fs": {
+                "all": true,
+                "copyFile": true,
+                "createDir": true,
+                "exists": true,
+                "readDir": true,
+                "readFile": true,
+                "removeDir": true,
+                "removeFile": true,
+                "renameFile": true,
+                "scope": [],
+                "writeFile": true
+            },
+            "path": {
+                "all": true
+            },
+            "http": {
+                "all": true,
+                "request": true,
+                "scope": ["https://ped.uspto.gov/*", "http://localhost:9291/*"]
+            },
+            "shell": {
+                "all": true,
+                "execute": true,
+                "sidecar": true,
+                "open": true,
+                "scope": [
+                    {
+                        "name": "extzip",
+                        "cmd": "powershell",
+                        "args": true
+                    },
+                    {
+                        "name": "run-git-commit",
+                        "cmd": "git",
+                        "args": ["commit", "-m", { "validator": "\\S+" }]
+                    }
+                ]
+            }
         },
         "bundle": {
             "active": true,

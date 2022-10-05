@@ -1,11 +1,14 @@
 import { useUSPTOStore } from '@/stores/counter'
 import { useToast } from 'vue-toastification'
-let stringToArray = (data: string) => {
+let stringToArray = async (data: string) => {
     const toast = useToast()
     let usptoStore = useUSPTOStore()
     let apparray: string[] = []
     let pubarray: string[] = []
     let patarray: string[] = []
+    data = data.split(/"/gim).join('')
+    data = data.replace(/;/gim, '\n')
+    console.log(data)
     let temp = data.split(/\r?\n/).filter((e) => {
         return e != '' || null || e.match(/US/gim)
     })
@@ -40,7 +43,6 @@ let stringToArray = (data: string) => {
             }
         }
     })
-    console.log(apparray)
     apparray = [...new Set(apparray)]
     patarray = [...new Set(patarray)]
     pubarray = [...new Set(pubarray)]

@@ -5,6 +5,9 @@ export const useUSPTOStore = defineStore('uspto', () => {
     let applicationNo = ref<patData[]>([])
     let publicationNo = ref<patData[]>([])
     let PatentNo = ref<patData[]>([])
+    let appno = ref<string[]>([])
+    let pubno = ref<string[]>([])
+    let patno = ref<string[]>([])
 
     let updateAppNo = (data: Array<string>) => {
         data.forEach((element) => {
@@ -13,6 +16,7 @@ export const useUSPTOStore = defineStore('uspto', () => {
                 color: 'secondary',
                 status: {},
             })
+            appno.value.push(element)
         })
     }
     let updatePubNo = (data: Array<string>) => {
@@ -22,6 +26,7 @@ export const useUSPTOStore = defineStore('uspto', () => {
                 color: 'secondary',
                 status: {},
             })
+            pubno.value.push(element)
         })
     }
     let updatePatNo = (data: Array<string>) => {
@@ -31,6 +36,7 @@ export const useUSPTOStore = defineStore('uspto', () => {
                 color: 'secondary',
                 status: {},
             })
+            patno.value.push(element)
         })
     }
 
@@ -49,5 +55,8 @@ export const useUSPTOStore = defineStore('uspto', () => {
         updatePubNo,
         updatePatNo,
         update1AppNo,
+        appno,
+        pubno,
+        patno,
     }
 })

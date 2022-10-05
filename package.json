@@ -13,18 +13,19 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.6",
-        "axios": "^0.27.2",
+        "@tauri-apps/api": "^1.1.0",
         "bootstrap": "^5.2.1",
         "pinia": "^2.0.21",
         "vue": "^3.2.38",
         "vue-router": "^4.1.5",
         "vue-toastification": "^2.0.0-rc.5",
-        "xlsx": "^0.18.5"
+        "xlsx": "^0.18.5",
+        "zlib": "^1.0.5"
     },
     "devDependencies": {
         "@rushstack/eslint-patch": "^1.1.4",
         "@tauri-apps/cli": "^1.1.1",
-        "@types/node": "^16.11.56",
+        "@types/node": "^16.11.63",
         "@vitejs/plugin-vue": "^3.0.3",
         "@vitejs/plugin-vue-jsx": "^2.0.1",
         "@vue/eslint-config-prettier": "^7.0.0",
