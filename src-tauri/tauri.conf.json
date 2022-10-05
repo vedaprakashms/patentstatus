@@ -24,7 +24,7 @@
                 "removeDir": true,
                 "removeFile": true,
                 "renameFile": true,
-                "scope": [],
+                "scope": ["*"],
                 "writeFile": true
             },
             "path": {

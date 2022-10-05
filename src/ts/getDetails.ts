@@ -1,5 +1,6 @@
 import { getClient, Body, ResponseType, fetch } from '@tauri-apps/api/http'
 import { useUSPTOStore } from '@/stores/counter'
+import { useToast } from 'vue-toastification'
 import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs'
 
 let getDetails = async () => {
@@ -53,8 +54,17 @@ let getDetails = async () => {
             fetch(element.url.replace('package', 'download'), {
                 method: 'GET',
                 responseType: ResponseType.Binary,
-            }).then(async (r) => {
+            }).then(async (r: any) => {
                 console.log(r)
+
+                writeBinaryFile(r.url.split('/')[5] + '.zip', r.data, {
+                    dir: BaseDirectory.Download,
+                }).then(() => {
+                    const toast = useToast()
+                    toast.success(
+                        'wrote the file ' + r.url.split('/')[5] + '.zip'
+                    )
+                })
             })
         })
     }, 40000)
