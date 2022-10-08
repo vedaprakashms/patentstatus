@@ -1,7 +1,16 @@
 import { getClient, Body, ResponseType, fetch } from '@tauri-apps/api/http'
 import { useUSPTOStore } from '@/stores/counter'
-import { useToast } from 'vue-toastification'
-import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs'
+import { POSITION, useToast } from 'vue-toastification'
+import { unzip } from '@/ts/unzip'
+import { downloadDir, resolve } from '@tauri-apps/api/path'
+import {
+    writeBinaryFile,
+    BaseDirectory,
+    exists,
+    createDir,
+} from '@tauri-apps/api/fs'
+
+const toast = useToast()
 
 let getDetails = async () => {
     let usptoStore = useUSPTOStore()
@@ -47,20 +56,39 @@ let getDetails = async () => {
             })
         console.log(packageArray)
         console.time('abc')
+        toast.info(
+            'Sent all Application numbers to be queried in USPTO, waiting for 30seconds to finish querying & start downloading.',
+            {
+                position: 'top-center' as POSITION,
+                timeout: 40000,
+            }
+        )
     })
     setTimeout(() => {
         packageArray.forEach((element: any) => {
-            console.log(element.url.replace('package', 'download'))
+            //toast.info(element.url.replace('package', 'download'))
+
             fetch(element.url.replace('package', 'download'), {
                 method: 'GET',
                 responseType: ResponseType.Binary,
             }).then(async (r: any) => {
                 console.log(r)
-
-                writeBinaryFile(r.url.split('/')[5] + '.zip', r.data, {
-                    dir: BaseDirectory.Download,
-                }).then(() => {
-                    const toast = useToast()
+                const downloadDirPath = await downloadDir()
+                let kpath = await resolve(downloadDirPath, 'PatentSatusData')
+                let pathexist = await exists(kpath)
+                if (!pathexist) {
+                    createDir('PatentSatusData', {
+                        dir: BaseDirectory.Download,
+                    })
+                }
+                writeBinaryFile(
+                    'PatentSatusData\\' + r.url.split('/')[5] + '.zip',
+                    r.data,
+                    {
+                        dir: BaseDirectory.Download,
+                    }
+                ).then(() => {
+                    unzip(r.url.split('/')[5] + '.zip')
                     toast.success(
                         'wrote the file ' + r.url.split('/')[5] + '.zip'
                     )

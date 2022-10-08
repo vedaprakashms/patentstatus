@@ -1,8 +1,13 @@
 import { Command } from '@tauri-apps/api/shell'
-import { desktopDir, join, resolve } from '@tauri-apps/api/path'
-let unzip = async () => {
-    let desk = await desktopDir()
-    let k = await join(desk, '2.zip')
+import { downloadDir, join, resolve } from '@tauri-apps/api/path'
+import { createDir } from '@tauri-apps/api/fs'
+let unzip = async (abc: any) => {
+    let download = await downloadDir()
+    let k = await join(download.toString(), 'PatentSatusData', abc.toString())
+    let k1 = await join(download.toString(), 'PatentSatusData')
+
+    await createDir()
+
     let path = await resolve(k)
     console.log(path)
     const cmd = new Command('extzip', [
@@ -10,7 +15,7 @@ let unzip = async () => {
         '-Path',
         k,
         '-DestinationPath',
-        desk,
+        k1,
     ])
     cmd.execute().then((r) => {
         console.log(r)
