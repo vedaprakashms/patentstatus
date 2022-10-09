@@ -1,6 +1,5 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { log } from 'node:console'
 
 export const useUSPTOStore = defineStore('uspto', () => {
     let applicationNo = ref<patData[]>([])

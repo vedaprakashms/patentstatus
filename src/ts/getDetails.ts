@@ -11,8 +11,6 @@ import {
     readDir,
     readTextFile,
 } from '@tauri-apps/api/fs'
-import type { json } from 'stream/consumers'
-import type { log } from 'node:console'
 
 const toast = useToast()
 
