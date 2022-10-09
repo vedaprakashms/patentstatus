@@ -8,7 +8,11 @@ import {
     BaseDirectory,
     exists,
     createDir,
+    readDir,
+    readTextFile,
 } from '@tauri-apps/api/fs'
+import type { json } from 'stream/consumers'
+import type { log } from 'node:console'
 
 const toast = useToast()
 
@@ -75,8 +79,12 @@ let getDetails = async () => {
                 console.log(r)
                 const downloadDirPath = await downloadDir()
                 let kpath = await resolve(downloadDirPath, 'PatentSatusData')
-                let pathexist = await exists(kpath)
-                if (!pathexist) {
+                let pathexist = (await exists(kpath)) as unknown as Boolean
+                let kbool: Boolean
+
+                pathexist ? (kbool = true) : (kbool = false)
+
+                if (kbool) {
                     createDir('PatentSatusData', {
                         dir: BaseDirectory.Download,
                     })
@@ -87,8 +95,26 @@ let getDetails = async () => {
                     {
                         dir: BaseDirectory.Download,
                     }
-                ).then(() => {
-                    unzip(r.url.split('/')[5] + '.zip')
+                ).then(async () => {
+                    await unzip(r.url.split('/')[5] + '.zip').then(
+                        async (r) => {
+                            console.log(r)
+                            const entries = await readDir(r, {
+                                recursive: true,
+                            })
+                            entries.forEach((element) => {
+                                console.log(`Entry: ${element.path}`)
+                                readTextFile(element.path, {}).then((r) => {
+                                    let temp_one = JSON.parse(r)
+                                    usptoStore.updateResults(
+                                        temp_one.PatentData
+                                    )
+                                })
+                            })
+                            console.log(usptoStore.results)
+                        }
+                    )
+
                     toast.success(
                         'wrote the file ' + r.url.split('/')[5] + '.zip'
                     )
@@ -107,5 +133,14 @@ let splitIntoChunk = async (params: string[]) => {
     }
     return templist
 }
+
+// function processEntries(entries) {
+//     for (const entry of entries) {
+//         console.log(`Entry: ${entry.path}`)
+//         if (entry.children) {
+//             processEntries(entry.children)
+//         }
+//     }
+// }
 
 export { getDetails }

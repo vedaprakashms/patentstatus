@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import type { log } from 'node:console'
 
 export const useUSPTOStore = defineStore('uspto', () => {
     let applicationNo = ref<patData[]>([])
@@ -8,13 +9,13 @@ export const useUSPTOStore = defineStore('uspto', () => {
     let appno = ref<string[]>([])
     let pubno = ref<string[]>([])
     let patno = ref<string[]>([])
+    let results = ref<PatentData[]>([])
 
     let updateAppNo = (data: Array<string>) => {
         data.forEach((element) => {
             applicationNo.value.push({
                 id: element,
                 color: 'secondary',
-                status: {},
             })
             appno.value.push(element)
         })
@@ -24,7 +25,6 @@ export const useUSPTOStore = defineStore('uspto', () => {
             publicationNo.value.push({
                 id: element,
                 color: 'secondary',
-                status: {},
             })
             pubno.value.push(element)
         })
@@ -34,9 +34,14 @@ export const useUSPTOStore = defineStore('uspto', () => {
             PatentNo.value.push({
                 id: element,
                 color: 'secondary',
-                status: {},
             })
             patno.value.push(element)
+        })
+    }
+
+    let updateResults = async (data: PatentData[]) => {
+        data.forEach((e: PatentData) => {
+            results.value.push(e)
         })
     }
 
@@ -58,5 +63,7 @@ export const useUSPTOStore = defineStore('uspto', () => {
         appno,
         pubno,
         patno,
+        results,
+        updateResults,
     }
 })
