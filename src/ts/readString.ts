@@ -51,7 +51,8 @@ let stringToArray = async (data: string) => {
     usptoStore.updatePatNo(patarray)
     usptoStore.updatePubNo(pubarray)
     toast.success(
-        'Allocated the patent/application/Publication Number to each group below.'
+        'Allocated the patent/application/Publication Number to each group below.',
+        { timeout: 2000 }
     )
 }
 

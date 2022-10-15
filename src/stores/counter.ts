@@ -39,9 +39,7 @@ export const useUSPTOStore = defineStore('uspto', () => {
     }
 
     let updateResults = async (data: PatentData[]) => {
-        data.forEach((e: PatentData) => {
-            results.value.push(e)
-        })
+        results.value.push(...data)
     }
 
     let update1AppNo = (data: string) => {

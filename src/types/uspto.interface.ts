@@ -3,6 +3,18 @@ interface patData {
     color: string
 }
 
+interface payload_Type {
+    searchText: string
+    fq: never[]
+    fl: string
+    mm: string
+    df: string
+    qf: string
+    facet: string
+    sort: string
+    start: string
+}
+
 interface ApplicationNumberText {
     value: string
     electronicText: string
