@@ -7,6 +7,8 @@ import {
     readTextFile,
     removeDir,
     removeFile,
+    writeFile,
+    writeTextFile,
 } from '@tauri-apps/api/fs'
 import { useUSPTOStore } from '@/stores/counter'
 let unzip = async (abc: any) => {
@@ -25,7 +27,7 @@ let unzip = async (abc: any) => {
 
     let path = await resolve(k)
     let usptostore = useUSPTOStore()
-    console.log(path)
+    //console.log(path)
     const cmd = new Command('extzip', [
         'Expand-Archive',
         '-Path',
@@ -34,15 +36,15 @@ let unzip = async (abc: any) => {
         k1,
     ])
     cmd.execute().then(async (r) => {
-        console.log(r)
+        //console.log(r)
         await readDir(k1).then(async (res) => {
-            console.log(res)
+            //console.log(res)
             res.forEach(async (filepath) => {
-                console.log(filepath.path)
+                //console.log(filepath.path)
                 //do all actions of each file and add them to the results.
                 await readTextFile(filepath.path).then((text) => {
-                    console.log('contents of file : ' + filepath.path)
-                    console.log(JSON.parse(text).PatentData)
+                    //console.log('contents of file : ' + filepath.path)
+                    //console.log(JSON.parse(text).PatentData)
                     usptostore.updateResults(JSON.parse(text).PatentData)
                 })
 
@@ -51,7 +53,8 @@ let unzip = async (abc: any) => {
         })
         setTimeout(() => {
             removeDir(k1, { recursive: true })
-            console.log(usptostore.results)
+            //console.log(usptostore.results)
+            writeTextFile('anc.json', JSON.stringify(usptostore.results))
         }, 50000)
     })
 

@@ -1,4 +1,6 @@
 import { utils, writeFileXLSX } from 'xlsx'
+import { useUSPTOStore } from '@/stores/counter'
+import { useToast } from 'vue-toastification'
 
 async function xlwrite(country = '') {
     /* flatten objects */
@@ -50,4 +52,12 @@ async function xlwrite(country = '') {
     writeFileXLSX(workbook, country + '.xlsx')
 }
 
-export { xlwrite }
+let xlFinalWrite = () => {
+    let usptoStore = useUSPTOStore()
+    const toast = useToast()
+    //console.log(usptoStore.results)
+
+    toast.success('writing final excel.')
+}
+
+export { xlwrite, xlFinalWrite }

@@ -59,11 +59,11 @@ let getDetails = async () => {
     })
     // end of spliting hte array of 700 each.
     //converting the split 700 each array to search strings
-    console.log(appPayLoadArray)
-    console.log(patPayLoadArray)
-    console.log(pubPayLoadArray)
+    //console.log(appPayLoadArray)
+    //console.log(patPayLoadArray)
+    //console.log(pubPayLoadArray)
 
-    console.log(payloadArray)
+    //console.log(payloadArray)
     toast.info(
         'The entire search numbers are cut into ' +
             payloadArray.length.toLocaleString() +
@@ -79,7 +79,7 @@ let getDetails = async () => {
                 timeout: 50,
             })
             .then(async (res: any) => {
-                console.log(res)
+                //console.log(res)
                 //console.log(res.data.createQueryRequest.searchText)
                 await client
                     .request({
@@ -110,7 +110,7 @@ let getDetails = async () => {
                                 let kbool: Boolean = true
                                 await invoke('exists2', { path: kpath }).then(
                                     async (r) => {
-                                        console.log(r)
+                                        //console.log(r)
                                         ;(await r)
                                             ? (kbool = false)
                                             : (kbool = true)
@@ -131,14 +131,14 @@ let getDetails = async () => {
                                     unzip(
                                         zipfiledata.url.split('/')[5] + '.zip'
                                     ).then((r) => {
-                                        console.log(r)
+                                        //console.log(r)
                                     })
                                 })
                             })
                         }, 40000)
                     })
             })
-            .catch(console.log)
+        // .catch(//console.log)
         toast.info(
             'Sent all Application numbers to be queried in USPTO, waiting for 30seconds to finish querying & start downloading.',
             {
@@ -168,7 +168,7 @@ let convertSearchString = async (
     for (let i of payloadArrayparm) {
         switch (payloadType) {
             case 'app':
-                console.log(payloadType)
+                //console.log(payloadType)
                 payloadArray.push({
                     searchText: 'applId:(' + i + ')',
                     fq: [],
@@ -183,7 +183,7 @@ let convertSearchString = async (
                 break
 
             case 'pub':
-                console.log(payloadType)
+                //console.log(payloadType)
                 payloadArray.push({
                     searchText: 'appEarlyPubNumber:(' + i + ')',
                     fq: [],
@@ -198,7 +198,7 @@ let convertSearchString = async (
                 break
 
             case 'pat':
-                console.log(payloadType)
+                //console.log(payloadType)
                 payloadArray.push({
                     searchText: 'patentNumber:(' + i + ')',
                     fq: [],
@@ -220,7 +220,7 @@ let convertSearchString = async (
 
 async function processEntries(entries: any) {
     for (const entry of entries) {
-        console.log(`Entry: ${entry.path}`)
+        //console.log(`Entry: ${entry.path}`)
         const k = await extname(entry.path)
         assert(k !== 'json', `${entry.path} is a json file.`)
         if (entry.children) {
