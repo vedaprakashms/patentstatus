@@ -103,27 +103,27 @@ let getDetails = async () => {
                                         '.zip'
                                 )
                                 console.log(r)
-                                await readDir(r, {
-                                    recursive: true,
-                                }).then(async (entries) => {
-                                    for (let i = 0; i < entries.length; i++) {
-                                        const element = entries[i]
-                                        console.log(`Entry: ${element.path}`)
-                                        await readTextFile(
-                                            element.path,
-                                            {}
-                                        ).then(async (r) => {
-                                            let temp_one = await JSON.parse(r)
-                                            await usptoStore.updateResults(
-                                                temp_one.PatentData
-                                            )
-                                            console.log('Reading results store')
-                                            console.log(usptoStore.results)
-                                        })
+                                // await readDir(r, {
+                                //     recursive: true,
+                                // }).then(async (entries) => {
+                                //     for (let i = 0; i < entries.length; i++) {
+                                //         const element = entries[i]
+                                //         console.log(`Entry: ${element.path}`)
+                                //         await readTextFile(
+                                //             element.path,
+                                //             {}
+                                //         ).then(async (r) => {
+                                //             let temp_one = await JSON.parse(r)
+                                //             await usptoStore.updateResults(
+                                //                 temp_one.PatentData
+                                //             )
+                                //             console.log('Reading results store')
+                                //             console.log(usptoStore.results)
+                                //         })
 
-                                        await removeFile(element.path, {})
-                                    }
-                                })
+                                //         await removeFile(element.path, {})
+                                //     }
+                                // })
                             }
                         )
                     })
