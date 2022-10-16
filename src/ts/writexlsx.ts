@@ -47,7 +47,11 @@ async function xlwrite(country = '') {
 let xlFinalWrite = () => {
     let usptoStore = useUSPTOStore()
     const toast = useToast()
+<<<<<<< HEAD
     console.log(usptoStore.results)
+=======
+    //console.log(usptoStore.results)
+>>>>>>> 9b0dba4c7fc9f40874a862bdc5a32c4c51bb4eb4
 
     toast.success('writing final excel.')
 }

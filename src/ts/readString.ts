@@ -8,7 +8,7 @@ let stringToArray = async (data: string) => {
     let patarray: string[] = []
     data = data.split(/"/gim).join('')
     data = data.replace(/;/gim, '\n')
-    console.log(data)
+    //console.log(data)
     let temp = data.split(/\r?\n/).filter((e) => {
         return e != '' || null || e.match(/US/gim)
     })

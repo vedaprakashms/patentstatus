@@ -4,13 +4,20 @@ import { useUSPTOStore } from '@/stores/counter'
 import { readxlUS } from '@/ts/readxlsx'
 import { stringToArray } from '@/ts/readString'
 import { getDetails } from '@/ts/getDetails'
+import { xlFinalWrite } from '@/ts/writexlsx'
 let patstring = ref('')
 let usptoStore = useUSPTOStore()
 let onFileSelected = async (e: any) => {
     const file = e.target.files[0]
     const data = await file.arrayBuffer()
     readxlUS(data).then((r) => {
+<<<<<<< HEAD
         getDetails().then(() => {})
+=======
+        getDetails().then(() => {
+            xlFinalWrite()
+        })
+>>>>>>> 9b0dba4c7fc9f40874a862bdc5a32c4c51bb4eb4
     })
 }
 let onStringSelected = async () => {

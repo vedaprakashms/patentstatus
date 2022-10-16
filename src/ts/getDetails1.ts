@@ -46,8 +46,8 @@ let getDetails = async () => {
                 body: Body.json(payload),
             })
             .then(async (r: any) => {
-                console.log(r)
-                console.log(r.data.queryId)
+                //console.log(r)
+                //console.log(r.data.queryId)
                 let k = await client.request({
                     method: 'PUT',
                     url:
@@ -57,7 +57,7 @@ let getDetails = async () => {
                 })
                 packageArray.push(k)
             })
-        console.log(packageArray)
+        //console.log(packageArray)
         console.time('abc')
         toast.info(
             'Sent all Application numbers to be queried in USPTO, waiting for 30seconds to finish querying & start downloading.',
@@ -75,13 +75,13 @@ let getDetails = async () => {
                 method: 'GET',
                 responseType: ResponseType.Binary,
             }).then(async (rurl: any) => {
-                console.log(rurl)
+                //console.log(rurl)
                 const downloadDirPath = await downloadDir()
                 let kpath = await resolve(downloadDirPath, 'PatentSatusData')
 
                 let kbool: Boolean = true
                 await invoke('exists2', { path: kpath }).then(async (r) => {
-                    console.log(r)
+                    //console.log(r)
                     ;(await r) ? (kbool = false) : (kbool = true)
                     if (kbool) {
                         await createDir('PatentSatusData', {
@@ -102,13 +102,13 @@ let getDetails = async () => {
                                         rurl.url.split('/')[5] +
                                         '.zip'
                                 )
-                                console.log(r)
+                                //console.log(r)
                                 // await readDir(r, {
                                 //     recursive: true,
                                 // }).then(async (entries) => {
                                 //     for (let i = 0; i < entries.length; i++) {
                                 //         const element = entries[i]
-                                //         console.log(`Entry: ${element.path}`)
+                                //         //console.log(`Entry: ${element.path}`)
                                 //         await readTextFile(
                                 //             element.path,
                                 //             {}
@@ -117,8 +117,8 @@ let getDetails = async () => {
                                 //             await usptoStore.updateResults(
                                 //                 temp_one.PatentData
                                 //             )
-                                //             console.log('Reading results store')
-                                //             console.log(usptoStore.results)
+                                //             //console.log('Reading results store')
+                                //             //console.log(usptoStore.results)
                                 //         })
 
                                 //         await removeFile(element.path, {})
@@ -145,7 +145,7 @@ let splitIntoChunk = async (params: string[]) => {
 
 // function processEntries(entries) {
 //     for (const entry of entries) {
-//         console.log(`Entry: ${entry.path}`)
+//         //console.log(`Entry: ${entry.path}`)
 //         if (entry.children) {
 //             processEntries(entry.children)
 //         }
