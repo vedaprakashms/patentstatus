@@ -1,4 +1,6 @@
 import { utils, writeFileXLSX } from 'xlsx'
+import { useUSPTOStore } from '@/stores/counter'
+import { useToast } from 'vue-toastification'
 
 async function xlwrite(country = '') {
     /* flatten objects */
@@ -6,12 +8,10 @@ async function xlwrite(country = '') {
         {
             patNo: 'US7925623B2',
             appNo: 'US14/462,369',
-            PubNo: 'US20170076227A1',
         },
         {
             patNo: 'US7246140B2',
             appNo: 'US13/778,175',
-            PubNo: 'US20170076596A1',
         },
     ]
 
@@ -19,12 +19,10 @@ async function xlwrite(country = '') {
         {
             patNo: 'EP1540510',
             appNo: 'EP03755811',
-            PubNo: 'EP1540510',
         },
         {
             patNo: 'EP1540478',
             appNo: 'EP03749544',
-            PubNo: 'EP1540478',
         },
     ]
 
@@ -38,16 +36,20 @@ async function xlwrite(country = '') {
     utils.book_append_sheet(workbook, worksheet, country)
 
     /* fix headers */
-    utils.sheet_add_aoa(
-        worksheet,
-        [['Patent Number', 'Application Number', 'Publication Number']],
-        {
-            origin: 'A1',
-        }
-    )
+    utils.sheet_add_aoa(worksheet, [['Patent Number', 'Application Number']], {
+        origin: 'A1',
+    })
 
     /* create an XLSX file and try to save to Presidents.xlsx */
     writeFileXLSX(workbook, country + '.xlsx')
 }
 
-export { xlwrite }
+let xlFinalWrite = () => {
+    let usptoStore = useUSPTOStore()
+    const toast = useToast()
+    console.log(usptoStore.results)
+
+    toast.success('writing final excel.')
+}
+
+export { xlwrite, xlFinalWrite }

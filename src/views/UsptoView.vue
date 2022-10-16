@@ -10,11 +10,11 @@ let onFileSelected = async (e: any) => {
     const file = e.target.files[0]
     const data = await file.arrayBuffer()
     readxlUS(data).then((r) => {
-        getDetails()
+        getDetails().then(() => {})
     })
 }
 let onStringSelected = async () => {
-    stringToArray(patstring.value).then(() => getDetails())
+    stringToArray(patstring.value).then(() => getDetails().then(() => {}))
 }
 </script>
 <template>

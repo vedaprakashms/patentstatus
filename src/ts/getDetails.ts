@@ -9,6 +9,7 @@ import {
     writeBinaryFile,
 } from '@tauri-apps/api/fs'
 import { getClient, Body, fetch, ResponseType } from '@tauri-apps/api/http'
+import { xlFinalWrite } from '@/ts/writexlsx'
 import {
     appDir,
     downloadDir,
@@ -80,7 +81,7 @@ let getDetails = async () => {
             })
             .then(async (res: any) => {
                 console.log(res)
-                //console.log(res.data.createQueryRequest.searchText)
+                console.log(res.data.createQueryRequest.searchText)
                 await client
                     .request({
                         method: 'PUT',
@@ -132,13 +133,14 @@ let getDetails = async () => {
                                         zipfiledata.url.split('/')[5] + '.zip'
                                     ).then((r) => {
                                         console.log(r)
+                                        xlFinalWrite()
                                     })
                                 })
                             })
                         }, 40000)
                     })
             })
-            .catch(console.log)
+        // .catch(console.log)
         toast.info(
             'Sent all Application numbers to be queried in USPTO, waiting for 30seconds to finish querying & start downloading.',
             {
@@ -154,7 +156,7 @@ let splitIntoChunk = async (params: string[]) => {
     while (params.length > 0) {
         let tempArray
         tempArray = params.splice(0, 700)
-        //console.log(tempArray.join(' '))
+        console.log(tempArray.join(' '))
         templist.push(tempArray)
     }
     return templist

@@ -7,8 +7,11 @@ import {
     readTextFile,
     removeDir,
     removeFile,
+    writeFile,
+    writeTextFile,
 } from '@tauri-apps/api/fs'
 import { useUSPTOStore } from '@/stores/counter'
+
 let unzip = async (abc: any) => {
     let download = await downloadDir()
     let k = await join(download.toString(), 'PatentSatusData', abc.toString())
@@ -52,9 +55,9 @@ let unzip = async (abc: any) => {
         setTimeout(() => {
             removeDir(k1, { recursive: true })
             console.log(usptostore.results)
+            //writeTextFile('anc.json', JSON.stringify(usptostore.results))
         }, 50000)
     })
-
     return usptostore.results
 }
 
