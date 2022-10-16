@@ -54,13 +54,8 @@ let unzip = async (abc: any) => {
         })
         setTimeout(() => {
             removeDir(k1, { recursive: true })
-<<<<<<< HEAD
             console.log(usptostore.results)
             //writeTextFile('anc.json', JSON.stringify(usptostore.results))
-=======
-            //console.log(usptostore.results)
-            writeTextFile('anc.json', JSON.stringify(usptostore.results))
->>>>>>> 9b0dba4c7fc9f40874a862bdc5a32c4c51bb4eb4
         }, 50000)
     })
     return usptostore.results
