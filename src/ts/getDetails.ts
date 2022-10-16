@@ -80,13 +80,8 @@ let getDetails = async () => {
                 timeout: 50,
             })
             .then(async (res: any) => {
-<<<<<<< HEAD
                 console.log(res)
                 console.log(res.data.createQueryRequest.searchText)
-=======
-                //console.log(res)
-                //console.log(res.data.createQueryRequest.searchText)
->>>>>>> 9b0dba4c7fc9f40874a862bdc5a32c4c51bb4eb4
                 await client
                     .request({
                         method: 'PUT',
@@ -137,23 +132,15 @@ let getDetails = async () => {
                                     unzip(
                                         zipfiledata.url.split('/')[5] + '.zip'
                                     ).then((r) => {
-<<<<<<< HEAD
                                         console.log(r)
                                         xlFinalWrite()
-=======
-                                        //console.log(r)
->>>>>>> 9b0dba4c7fc9f40874a862bdc5a32c4c51bb4eb4
                                     })
                                 })
                             })
                         }, 40000)
                     })
             })
-<<<<<<< HEAD
         // .catch(console.log)
-=======
-        // .catch(//console.log)
->>>>>>> 9b0dba4c7fc9f40874a862bdc5a32c4c51bb4eb4
         toast.info(
             'Sent all Application numbers to be queried in USPTO, waiting for 30seconds to finish querying & start downloading.',
             {
